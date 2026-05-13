@@ -126,7 +126,6 @@ export function CountryEcosystem({ countryName, countryCode }: CountryEcosystemP
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
