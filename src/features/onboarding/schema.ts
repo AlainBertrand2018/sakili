@@ -26,7 +26,7 @@ export const onboardingSchema = z.object({
   linkedin: z.string().url("Enter a valid URL").or(z.literal("")).optional(),
   x: z.string().url("Enter a valid URL").or(z.literal("")).optional(),
   instagram: z.string().url("Enter a valid URL").or(z.literal("")).optional(),
-  project_links: z.array(z.string().url("Enter a valid URL").or(z.literal(""))).optional(),
+  project_links: z.array(z.string()).default([]),
 
   // Step 3: Ecosystem
   ai_specializations: z.array(z.string()).min(1, "Select at least one AI specialization"),

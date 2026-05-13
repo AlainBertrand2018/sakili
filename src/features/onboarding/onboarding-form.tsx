@@ -89,7 +89,8 @@ export function OnboardingForm() {
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
 
   const form = useForm<OnboardingData>({
-    resolver: zodResolver(onboardingSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(onboardingSchema) as any,
     defaultValues: {
       name: "",
       logo: "",
@@ -118,10 +119,18 @@ export function OnboardingForm() {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "project_links",
-  });
+  const [projectLinks, setProjectLinks] = React.useState<string[]>([""]);
+
+  const addProjectLink = () => setProjectLinks((prev) => [...prev, ""]);
+  const removeProjectLink = (idx: number) => setProjectLinks((prev) => prev.filter((_, i) => i !== idx));
+  const updateProjectLink = (idx: number, value: string) => {
+    setProjectLinks((prev) => {
+      const next = [...prev];
+      next[idx] = value;
+      return next;
+    });
+    form.setValue("project_links", projectLinks.map((v, i) => (i === idx ? value : v)));
+  };
 
   const nextStep = async () => {
     const fieldsList = getFieldsForStep(currentStep);
@@ -382,16 +391,17 @@ export function OnboardingForm() {
                 {/* Project Links */}
                 <div className="space-y-3">
                   <Label className="text-sm font-medium text-foreground block">Links to Realized Projects <span className="text-text-muted text-[10px]">(optional)</span></Label>
-                  {fields.map((field, idx) => (
-                    <div key={field.id} className="flex items-center gap-2">
+                  {projectLinks.map((link, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
                       <Link className="h-5 w-5 shrink-0 text-text-muted" />
                       <Input
-                        {...form.register(`project_links.${idx}`)}
+                        value={link}
+                        onChange={(e) => updateProjectLink(idx, e.target.value)}
                         placeholder="https://project-demo.com"
                         className="bg-muted h-11 rounded-xl border-border flex-1"
                       />
-                      {fields.length > 1 && (
-                        <button type="button" onClick={() => remove(idx)} className="p-2 text-destructive hover:bg-destructive/10 rounded-lg transition-colors">
+                      {projectLinks.length > 1 && (
+                        <button type="button" onClick={() => removeProjectLink(idx)} className="p-2 text-destructive hover:bg-destructive/10 rounded-lg transition-colors">
                           <X className="h-4 w-4" />
                         </button>
                       )}
@@ -399,7 +409,7 @@ export function OnboardingForm() {
                   ))}
                   <button
                     type="button"
-                    onClick={() => append("")}
+                    onClick={addProjectLink}
                     className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
                   >
                     <Plus className="h-4 w-4" />
