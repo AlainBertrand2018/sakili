@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-const siteUrl = "https://sakili.africa";
-const defaultOgImage = "/images/og_image.webp";
+const siteUrl = "https://sakili.launchableai.online";
+const defaultOgImage = "https://sakili.launchableai.online/images/og_image.webp";
 
 export const siteConfig = {
   name: "SAKILI",

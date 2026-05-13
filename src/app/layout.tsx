@@ -43,13 +43,13 @@ export const metadata: Metadata = {
     title: siteConfig.name + " | " + siteConfig.tagline,
     description: siteConfig.description,
     url: siteConfig.url,
-    images: [{ url: `${siteConfig.url}/images/og_image.webp`, width: 1200, height: 630 }],
+    images: [{ url: "https://sakili.launchableai.online/images/og_image.webp", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name + " | " + siteConfig.tagline,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/images/og_image.webp`],
+    images: ["https://sakili.launchableai.online/images/og_image.webp"],
   },
   other: {
     ...geo.other,
