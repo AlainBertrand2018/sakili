@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { Globe, Zap, Users, BarChart3, ShieldCheck, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import Image from "next/image";
+
 import { getFlag } from "./country-data";
 
 interface CountryEcosystemProps {
@@ -33,7 +34,7 @@ export function CountryEcosystem({ countryName, countryCode }: CountryEcosystemP
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
               <div className="h-20 w-20 rounded-2xl bg-card border border-border flex items-center justify-center shadow-2xl overflow-hidden">
-                <img src={flag} alt={countryCode} className="h-full w-full object-cover" />
+                <Image src={flag} alt={countryCode} width={80} height={80} unoptimized className="h-full w-full object-cover" />
               </div>
               <div className="text-center md:text-left">
                 <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-2">

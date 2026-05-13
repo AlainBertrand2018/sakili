@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Globe, Mail } from "lucide-react";
 import { Logo } from "@/components/logo";
 
@@ -40,10 +41,10 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <Link href="#" className="text-text-muted hover:text-primary transition-colors">
-                <img src="/icons/x.svg" alt="X" className="h-5 w-5" />
+                <Image src="/icons/x.svg" alt="X" width={20} height={20} unoptimized className="h-5 w-5" />
               </Link>
               <Link href="#" className="text-text-muted hover:text-primary transition-colors">
-                <img src="/icons/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
+                <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} unoptimized className="h-5 w-5" />
               </Link>
               <Link href="#" className="text-text-muted hover:text-primary transition-colors">
                 <Mail className="h-5 w-5" />

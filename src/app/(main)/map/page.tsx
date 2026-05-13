@@ -3,6 +3,7 @@
 import * as React from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Users, Wifi, Smartphone, DollarSign, Languages, Globe, ArrowRight, Sparkles } from "lucide-react";
 import { Header } from "@/components/layout/header";
@@ -40,7 +41,7 @@ export default function MapPage() {
               <div className="flex-1 bg-card border border-border rounded-2xl p-6 md:p-8 overflow-y-auto min-h-0">
                 {/* Header */}
                 <div className="flex items-start gap-4 mb-6">
-                  <img src={flag} alt={info.code} className="w-12 h-9 rounded-lg object-cover shadow-md" />
+                  <Image src={flag} alt={info.code} width={48} height={36} unoptimized className="w-12 h-9 rounded-lg object-cover shadow-md" />
                   <div className="min-w-0">
                     <h2 className="text-xl md:text-2xl font-bold text-foreground leading-tight">{info.fullName}</h2>
                     <span className="text-xs font-mono text-text-muted uppercase tracking-wider">{info.code}</span>

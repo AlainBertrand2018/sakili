@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { setDocumentMeta, pages } from "@/lib/seo";
 import {
   ArrowRight,
@@ -68,10 +69,13 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 md:px-6 overflow-hidden">
       {/* Background image */}
-      <img
+      <Image
         src="/images/hero_03.webp"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+        fill
+        priority
+        className="object-cover"
+        sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/10 pointer-events-none" />

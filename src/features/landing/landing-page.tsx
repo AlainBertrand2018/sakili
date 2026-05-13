@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Search,
@@ -69,9 +70,13 @@ export function LandingPage() {
         >
           {/* Logo */}
           <Link href="/" className="block">
-            <img
+            <Image
               src="/images/woodmark_logo.svg"
               alt="SAKILI"
+              width={384}
+              height={192}
+              priority
+              unoptimized
               className="h-32 w-auto md:h-48"
             />
           </Link>

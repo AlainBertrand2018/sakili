@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Lock, ShieldCheck, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -119,7 +120,7 @@ export function LoginPage() {
               Google
             </Button>
             <Button variant="outline" className="border-border bg-white/5 hover:bg-white/10 h-12 rounded-xl">
-              <img src="/icons/linkedin.svg" alt="LinkedIn" className="mr-2 h-4 w-4" />
+              <Image src="/icons/linkedin.svg" alt="LinkedIn" width={16} height={16} unoptimized className="mr-2 h-4 w-4" />
               LinkedIn
             </Button>
           </div>

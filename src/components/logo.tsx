@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export function Logo({ showText = true, size = "md", href = "/", className, boxless }: { showText?: boolean; size?: "sm" | "md" | "lg"; href?: string; className?: string; boxless?: boolean }) {
@@ -13,16 +14,24 @@ export function Logo({ showText = true, size = "md", href = "/", className, boxl
   return (
     <Link href={href} className={cn("flex items-center gap-2 group", className)}>
       {boxless ? (
-        <img
+        <Image
           src="/images/woodmark_logo.svg"
           alt="SAKILI"
+          width={80}
+          height={80}
+          priority
+          unoptimized
           className={cn(s.img, "w-auto object-contain")}
         />
       ) : (
         <div className={cn(s.box, "rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105 shrink-0 p-0.5")}>
-          <img
+          <Image
             src="/images/woodmark_logo.svg"
             alt="SAKILI"
+            width={40}
+            height={40}
+            priority
+            unoptimized
             className="h-full w-full object-contain"
           />
         </div>

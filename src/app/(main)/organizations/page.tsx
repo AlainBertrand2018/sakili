@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   Building2, Globe, ChevronRight, ClipboardList, Clock,
   Phone, Percent, IdCard, Scale, Sparkles,
@@ -135,10 +136,13 @@ export default function OrganizationsPage() {
       {/* ─── Section 1: Hero ─── */}
       <section className="relative min-h-screen flex items-center justify-center px-4 md:px-6 overflow-hidden">
         {/* Background image */}
-        <img
+        <Image
           src="/images/hero_01.webp"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/10 pointer-events-none" />
@@ -165,7 +169,7 @@ export default function OrganizationsPage() {
               onSelect={(c) => setSelectedCode(c.countryCode)}
               renderItem={(c, highlighted) => (
                 <div className="flex items-center gap-3">
-                  <img src={getFlag(c.countryCode)} alt="" className="w-6 h-5 rounded object-cover" />
+                  <Image src={getFlag(c.countryCode)} alt="" width={24} height={20} unoptimized className="w-6 h-5 rounded object-cover" />
                   <div>
                     <div className="text-sm font-medium text-foreground">{c.countryName}</div>
                     <div className="text-[10px] font-mono text-text-muted uppercase">{c.countryCode}</div>
@@ -214,7 +218,7 @@ export default function OrganizationsPage() {
                   <h2 className="text-2xl font-bold text-foreground">
                     Path to Business in <span className="text-primary">{data.countryName}</span>
                   </h2>
-                  {flag && <img src={flag} alt="" className="w-8 h-6 rounded object-cover" />}
+                  {flag && <Image src={flag} alt="" width={32} height={24} unoptimized className="w-8 h-6 rounded object-cover" />}
                 </div>
                 <p className="text-sm text-text-secondary mb-6 max-w-xl">
                   What brings you to {data.countryName}&rsquo;s AI ecosystem?
