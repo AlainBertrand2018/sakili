@@ -90,7 +90,7 @@ export function LandingPage() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask Africa's AI ecosystem..."
+                placeholder="What do you want to do today?"
                 className="flex-1 bg-transparent text-foreground placeholder-text-muted py-4 pl-14 pr-14 rounded-2xl outline-none text-base md:text-lg"
               />
               <button className="absolute right-2 p-2.5 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
