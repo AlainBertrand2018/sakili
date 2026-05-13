@@ -6,9 +6,14 @@ import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import { EventCreateForm } from "@/features/events/event-create-form";
 import { useRouter } from "next/navigation";
+import { setDocumentMeta, pages } from "@/lib/seo";
 
 export default function CreateEventPage() {
   const router = useRouter();
+
+  React.useEffect(() => {
+    setDocumentMeta(pages.eventsCreate.title, pages.eventsCreate.description);
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

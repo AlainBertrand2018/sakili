@@ -1,9 +1,7 @@
 import { HandshakeDashboard } from "@/features/collaborations/handshake-dashboard";
+import { pages, buildMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Handshakes",
-  description: "Manage your institutional collaborations on SAKILI.",
-};
+export const metadata = buildMetadata(pages.collaborations);
 
 export default function Page() {
   return <HandshakeDashboard />;

@@ -15,6 +15,7 @@ import {
   Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { setDocumentMeta, pages } from "@/lib/seo";
 
 const shortcuts = [
   { name: "Discover", href: "/about", icon: Search },
@@ -33,6 +34,10 @@ const bottomLinks = [
 
 export function LandingPage() {
   const [query, setQuery] = React.useState("");
+
+  React.useEffect(() => {
+    setDocumentMeta(pages.home.title, pages.home.description);
+  }, []);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">

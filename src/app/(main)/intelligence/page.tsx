@@ -4,8 +4,13 @@ import * as React from "react";
 import { BarChart3, ArrowRight } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
+import { setDocumentMeta, pages } from "@/lib/seo";
 
 export default function IntelligencePage() {
+  React.useEffect(() => {
+    setDocumentMeta(pages.intelligence.title, pages.intelligence.description);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />

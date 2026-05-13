@@ -1,4 +1,7 @@
 import { Header } from "@/components/layout/header";
+import { buildMetadata, pages } from "@/lib/seo";
+
+export const metadata = buildMetadata(pages.terms);
 
 export default function TermsPage() {
   return (

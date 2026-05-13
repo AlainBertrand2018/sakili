@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { setDocumentMeta, pages } from "@/lib/seo";
 
 const mockEvents = [
   {
@@ -39,6 +40,10 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function EventsPage() {
+  React.useEffect(() => {
+    setDocumentMeta(pages.events.title, pages.events.description);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />

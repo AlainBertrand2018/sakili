@@ -10,6 +10,7 @@ import { Header } from "@/components/layout/header";
 import { FilterableSearch } from "@/components/filterable-search";
 import { getAdminData, getAllAdminData, typeMeta, type AdminOrg } from "@/features/discovery/organization-data";
 import { getFlag } from "@/features/discovery/country-data";
+import { setDocumentMeta, pages } from "@/lib/seo";
 
 const countries = getAllAdminData();
 
@@ -108,6 +109,10 @@ export default function OrganizationsPage() {
   const [selectedCode, setSelectedCode] = React.useState(countries[0]?.countryCode || "MU");
   const [sectorFilter, setSectorFilter] = React.useState("");
   const [intent, setIntent] = React.useState<string>("register");
+
+  React.useEffect(() => {
+    setDocumentMeta(pages.organizations.title, pages.organizations.description);
+  }, []);
 
   const data = getAdminData(selectedCode);
   const flag = data ? getFlag(selectedCode) : "";

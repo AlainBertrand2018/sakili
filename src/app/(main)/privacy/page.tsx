@@ -1,4 +1,7 @@
 import { Header } from "@/components/layout/header";
+import { buildMetadata, pages } from "@/lib/seo";
+
+export const metadata = buildMetadata(pages.privacy);
 
 export default function PrivacyPage() {
   return (

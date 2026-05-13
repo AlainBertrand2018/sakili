@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { setDocumentMeta, pages } from "@/lib/seo";
 import {
   ArrowRight,
   ChevronDown,
@@ -450,6 +451,10 @@ function ContactSection() {
 /* ──────────── Page ──────────── */
 
 export default function AboutPage() {
+  React.useEffect(() => {
+    setDocumentMeta(pages.about.title, pages.about.description);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />

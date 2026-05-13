@@ -1,10 +1,8 @@
 import { OrganizationProfile } from "@/features/discovery/organization-profile";
+import { buildMetadata, pages } from "@/lib/seo";
 
-export const metadata = {
-  title: "Organization Profile",
-  description: "View organization details in the SAKILI AI ecosystem.",
-};
+export const metadata = buildMetadata(pages.orgProfile);
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Page() {
   return <OrganizationProfile />;
 }
