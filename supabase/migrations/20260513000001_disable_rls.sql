@@ -1,0 +1,4 @@
+-- Disable RLS for testing purposes
+ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
+ALTER TABLE organizations DISABLE ROW LEVEL SECURITY;
+ALTER TABLE collaborations DISABLE ROW LEVEL SECURITY;
