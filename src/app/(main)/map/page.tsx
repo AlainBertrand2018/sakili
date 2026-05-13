@@ -97,40 +97,64 @@ export default function MapPage() {
 
 /* ─── Square Ad Carousel ─── */
 const ads = [
-  { title: "Register Your Organization", subtitle: "Join 850+ verified AI orgs across 54 nations.", cta: "Get Started", bg: "from-accent/30 via-primary/10 to-accent/20" },
-  { title: "Ecosystem Intelligence Report", subtitle: "Data-driven insights on Africa's AI landscape.", cta: "Download", bg: "from-primary/20 via-accent/15 to-primary/10" },
-  { title: "Partner with SAKILI", subtitle: "Become an institutional partner and shape the ecosystem.", cta: "Learn More", bg: "from-accent/25 via-primary/5 to-accent/15" },
+  { src: "/images/adverts/sakili_AD_01.webp", alt: "Register Your Organization — Join 850+ verified AI businesses across 54 nations", href: "https://sakili.launchableai.online/onboarding" },
+  { src: "/images/adverts/sakili_AD_02.webp", alt: "Partner with SAKILI — Become an institutional partner and shape the ecosystem", href: "https://sakili.launchableai.online/onboarding" },
+  { src: "/images/adverts/sakili_AD_03.webp", alt: "Ecosystem Intelligence Report — Data-driven insights on Africa's AI landscape", href: "https://sakili.launchableai.online/intelligence" },
 ];
 
 function AdCarousel() {
   const [idx, setIdx] = React.useState(0);
+  const prevIdx = React.useRef(0);
+
+  const goTo = React.useCallback((next: number) => {
+    setIdx((cur) => { prevIdx.current = cur; return next; });
+  }, []);
 
   React.useEffect(() => {
-    const t = setInterval(() => setIdx((prev) => (prev + 1) % ads.length), 6000);
+    const t = setInterval(() => goTo((idx + 1) % ads.length), 6000);
     return () => clearInterval(t);
-  }, []);
+  }, [idx, goTo]);
+
+  const getTransform = (i: number) => {
+    if (i === idx) return "translateX(0%)";
+    if (i === prevIdx.current) return "translateX(-100%)";
+    return "translateX(100%)";
+  };
 
   return (
     <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-accent/30 bg-card shadow-sm">
       {ads.map((ad, i) => (
-        <div
+        <a
           key={i}
-          className={`absolute inset-0 bg-gradient-to-br ${ad.bg} p-6 flex flex-col justify-center transition-opacity duration-500 ${i === idx ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          href={ad.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            transform: getTransform(i),
+            transition: i === idx || i === prevIdx.current
+              ? "transform 600ms cubic-bezier(0.42, 0, 0.58, 1)"
+              : "none",
+          }}
+          className={`absolute inset-0 block ${i !== idx && i !== prevIdx.current ? "pointer-events-none" : ""}`}
         >
-          <h4 className="text-sm font-bold text-foreground mb-2">{ad.title}</h4>
-          <p className="text-xs text-text-secondary mb-4 leading-relaxed">{ad.subtitle}</p>
-          <button className="self-start px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
-            {ad.cta}
-          </button>
-        </div>
+          <Image
+            src={ad.src}
+            alt={ad.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 420px"
+            className="object-cover"
+            priority={i === 0}
+          />
+        </a>
       ))}
       {/* Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
         {ads.map((_, i) => (
           <button
             key={i}
-            onClick={() => setIdx(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${i === idx ? "w-5 bg-accent" : "w-1.5 bg-border"}`}
+            onClick={() => goTo(i)}
+            aria-label={`Go to ad ${i + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 shadow-sm ${i === idx ? "w-6 bg-accent" : "w-2 bg-white/60"}`}
           />
         ))}
       </div>
