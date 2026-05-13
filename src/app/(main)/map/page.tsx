@@ -100,6 +100,7 @@ const ads = [
   { src: "/images/adverts/sakili_AD_01.webp", alt: "Register Your Organization — Join 850+ verified AI businesses across 54 nations", href: "https://sakili.launchableai.online/onboarding" },
   { src: "/images/adverts/sakili_AD_02.webp", alt: "Partner with SAKILI — Become an institutional partner and shape the ecosystem", href: "https://sakili.launchableai.online/onboarding" },
   { src: "/images/adverts/sakili_AD_03.webp", alt: "Ecosystem Intelligence Report — Data-driven insights on Africa's AI landscape", href: "https://sakili.launchableai.online/intelligence" },
+  { src: "/images/adverts/sakili_AD_05.webp", alt: "Sakili Uniting Africa's AI Ecosystem —continental AI Business Landscape", href: "https://sakili.launchableai.online/" },
 ];
 
 function AdCarousel() {

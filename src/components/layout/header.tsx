@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X, Globe, Search, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/logo";
+
 
 const navItems = [
   { name: "About SAKILI", href: "/about" },
@@ -20,13 +20,21 @@ const navItems = [
 
 export function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
   const pathname = usePathname();
   const { scrollY } = useScroll();
   
+  React.useEffect(() => {
+    const unsubscribe = scrollY.on("change", (latest) => {
+      setIsScrolled(latest > 50);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
+
   const backgroundColor = useTransform(
     scrollY,
     [0, 50],
-    ["rgba(26, 15, 10, 0)", "rgba(26, 15, 10, 0.8)"]
+    ["rgba(26, 15, 10, 0)", "rgba(26, 15, 10, 0.9)"]
   );
   
   const backdropBlur = useTransform(
@@ -48,8 +56,16 @@ export function Header() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex h-20 items-center justify-between">
-          {/* Logo / Wordmark */}
-          <Logo boxless />
+          {/* Site Name Wordmark */}
+          <Link 
+            href="/" 
+            className={cn(
+              "text-2xl font-bold tracking-tight transition-colors",
+              isScrolled ? "text-white" : "text-foreground md:text-[#2C1810]"
+            )}
+          >
+            SAKILI
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
@@ -59,7 +75,9 @@ export function Header() {
                 href={item.href}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === item.href ? "text-primary" : "text-text-secondary"
+                  pathname === item.href 
+                    ? "text-primary" 
+                    : isScrolled ? "text-white" : "text-[#2C1810]/70"
                 )}
               >
                 {item.name}
@@ -69,11 +87,24 @@ export function Header() {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="text-text-secondary hover:text-primary">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={cn(
+                "transition-colors hover:text-primary",
+                isScrolled ? "text-white" : "text-[#2C1810]/70"
+              )}
+            >
               <Search className="h-5 w-5" />
             </Button>
             <Link href="/login">
-              <Button variant="ghost" className="text-text-secondary hover:text-primary">
+              <Button 
+                variant="ghost" 
+                className={cn(
+                  "transition-colors hover:text-primary",
+                  isScrolled ? "text-white" : "text-[#2C1810]/70"
+                )}
+              >
                 Log in
               </Button>
             </Link>
@@ -86,7 +117,10 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-foreground p-2"
+            className={cn(
+              "md:hidden p-2 transition-colors",
+              isScrolled ? "text-white" : "text-[#2C1810]"
+            )}
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -108,7 +142,7 @@ export function Header() {
               href={item.href}
               className={cn(
                 "text-lg font-medium transition-colors",
-                pathname === item.href ? "text-primary" : "text-text-secondary"
+                pathname === item.href ? "text-primary" : "text-white"
               )}
               onClick={() => setIsOpen(false)}
             >
@@ -117,7 +151,7 @@ export function Header() {
           ))}
           <div className="flex flex-col gap-4 pt-4 border-t border-border">
             <Link href="/login" onClick={() => setIsOpen(false)}>
-              <Button variant="outline" className="w-full justify-start border-border text-text-secondary">
+              <Button variant="outline" className="w-full justify-start border-border text-white">
                 Log in
               </Button>
             </Link>
