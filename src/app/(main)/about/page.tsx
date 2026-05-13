@@ -65,13 +65,19 @@ function Section({ className, children, id }: { className?: string; children: Re
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 md:px-6 overflow-hidden bg-background">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-accent/5 to-transparent pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative min-h-screen flex items-center justify-center px-4 md:px-6 overflow-hidden">
+      {/* Background image */}
+      <img
+        src="/images/hero_03.webp"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/10 pointer-events-none" />
 
       <div className="container mx-auto max-w-5xl relative z-10 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-6">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-white text-xs font-semibold mb-6">
             <Globe className="h-3 w-3" />
             Continental AI Infrastructure
           </span>
@@ -84,7 +90,7 @@ function HeroSection() {
           className="text-5xl md:text-8xl font-bold tracking-tight text-foreground mb-6 leading-[1.05]"
         >
           Africa's Intelligence, <br />
-          <span className="text-primary">Unified.</span>
+          <span className="text-white">Unified.</span>
         </motion.h1>
 
         <motion.p
@@ -93,7 +99,7 @@ function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          SAKILI is the trusted gateway for African AI discovery, collaboration, and ecosystem intelligence. 
+          SAKILI is the trusted gateway for African AI discovery, collaboration, and ecosystem intelligence.
           Connecting innovators across 54 nations from our headquarters in Mauritius.
         </motion.p>
 
@@ -164,16 +170,16 @@ function WhatIsSection() {
           </h2>
           <div className="space-y-4 text-text-secondary text-lg leading-relaxed">
             <p>
-              SAKILI — meaning "intelligence" in Swahili — is a continental infrastructure layer purpose-built 
+              SAKILI — meaning "intelligence" in Swahili — is a continental infrastructure layer purpose-built
               for the African AI ecosystem.
             </p>
             <p>
-              We provide a trusted platform where AI organizations across all 54 African nations can be discovered, 
-              verified, and connected. From startups and research labs to universities and government agencies, 
+              We provide a trusted platform where AI organizations across all 54 African nations can be discovered,
+              verified, and connected. From startups and research labs to universities and government agencies,
               SAKILI enables the collaboration infrastructure that Africa's AI renaissance demands.
             </p>
             <p>
-              Headquartered in Mauritius and built with continental-first values, we are creating the unified 
+              Headquartered in Mauritius and built with continental-first values, we are creating the unified
               nervous system for African AI intelligence.
             </p>
           </div>
@@ -377,7 +383,7 @@ function ContactSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Get in Touch</h2>
           <p className="text-text-secondary text-lg leading-relaxed mb-10">
-            Have questions about the ecosystem, verification, or partnership opportunities? 
+            Have questions about the ecosystem, verification, or partnership opportunities?
             We'd love to hear from you.
           </p>
 

@@ -1,37 +1,110 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Globe, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Users, Wifi, Smartphone, DollarSign, Languages, Globe, ArrowRight, Sparkles } from "lucide-react";
 import { Header } from "@/components/layout/header";
-import { Button } from "@/components/ui/button";
+import { getCountryInfo, getFlag } from "@/features/discovery/country-data";
+
+const InteractiveMap = dynamic(
+  () => import("@/features/discovery/interactive-map").then((m) => m.InteractiveMap),
+  { ssr: false }
+);
 
 export default function MapPage() {
+  const router = useRouter();
+  const [hoveredCode, setHoveredCode] = React.useState<string | null>(null);
+  const info = hoveredCode ? getCountryInfo(hoveredCode) : null;
+  const flag = hoveredCode ? getFlag(hoveredCode) : "";
+
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="h-screen flex flex-col bg-background overflow-hidden">
       <Header />
-      <div className="flex-1 container mx-auto px-4 md:px-6 pt-32 pb-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <Globe className="h-16 w-16 text-primary/30 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">Ecosystem Map</h1>
-          <p className="text-xl text-text-secondary mb-12 max-w-2xl mx-auto">
-            Explore the African AI ecosystem geographically. Discover organizations by country, region, and capability.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/ecosystem/mauritius">
-              <Button className="bg-primary text-primary-foreground px-8 h-14 rounded-xl text-lg">
-                Explore Mauritius
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/discover">
-              <Button variant="outline" className="border-border px-8 h-14 rounded-xl text-lg">
-                Browse All
-              </Button>
-            </Link>
-          </div>
+      <div className="flex-1 flex items-stretch px-6 md:px-10 lg:px-16 pt-20 pb-6 gap-6 min-h-0">
+        {/* Left — Map */}
+        <div className="flex-1 min-w-0 h-full">
+          <InteractiveMap onHover={(code) => { if (code) setHoveredCode(code); }} />
+        </div>
+
+        {/* Right — Country Info Panel */}
+        <div className="w-[360px] lg:w-[420px] h-full flex flex-col">
+          {info && hoveredCode ? (
+            <div className="flex-1 bg-card border border-border rounded-2xl p-6 md:p-8 overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-start gap-4 mb-6">
+                <img src={flag} alt={info.code} className="w-12 h-9 rounded-lg object-cover shadow-md" />
+                <div className="min-w-0">
+                  <h2 className="text-xl md:text-2xl font-bold text-foreground leading-tight">{info.fullName}</h2>
+                  <span className="text-xs font-mono text-text-muted uppercase tracking-wider">{info.code}</span>
+                </div>
+              </div>
+
+              <div className="h-px bg-border mb-6" />
+
+              {/* Stats grid */}
+              <div className="grid grid-cols-2 gap-y-5 gap-x-6 mb-8">
+                <StatRow icon={Users} label="Population" value={info.population} color="primary" />
+                <StatRow icon={Globe} label="AI Organizations" value={String(info.aiOrgs)} color="primary" />
+                <StatRow icon={Wifi} label="Internet Penetration" value={info.internet} color="accent" />
+                <StatRow icon={Smartphone} label="Mobile Penetration" value={info.mobile} color="accent" />
+                <StatRow icon={DollarSign} label="GDP" value={info.gdp} color="primary" />
+                <StatRow icon={Languages} label="Languages" value={info.languages.join(", ")} color="accent" />
+              </div>
+
+              {/* CTA */}
+              <button
+                onClick={() => router.push(`/ecosystem/${hoveredCode}`)}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+              >
+                Explore {info.name} Ecosystem
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              {/* Quick links */}
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <QuickLink href="/discover" label="Discover" />
+                <QuickLink href="/organizations" label="Organizations" />
+              </div>
+            </div>
+          ) : (
+            /* Empty state */
+            <div className="flex-1 bg-card border border-border rounded-2xl p-8 flex flex-col items-center justify-center text-center">
+              <Sparkles className="h-12 w-12 text-primary/30 mb-4" />
+              <h3 className="text-lg font-bold text-foreground mb-2">Hover over a country</h3>
+              <p className="text-sm text-text-secondary max-w-xs">
+                Move your cursor over a country on the map to see ecosystem data and insights.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  );
+}
+
+function StatRow({ icon: Icon, label, value, color }: { icon: React.ElementType; label: string; value: string; color: "primary" | "accent" }) {
+  return (
+    <div className="flex items-center gap-3 min-w-0">
+      <div className={`h-9 w-9 rounded-xl shrink-0 flex items-center justify-center ${color === "primary" ? "bg-primary/10 text-primary" : "bg-accent/10 text-accent"}`}>
+        <Icon className="h-4 w-4" />
+      </div>
+      <div className="min-w-0">
+        <div className="text-[10px] uppercase tracking-wider text-text-muted">{label}</div>
+        <div className="text-sm font-bold text-foreground truncate">{value}</div>
+      </div>
+    </div>
+  );
+}
+
+function QuickLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="block text-center py-2.5 rounded-xl border border-border text-sm font-medium text-text-secondary hover:border-primary/50 hover:text-foreground transition-all"
+    >
+      {label}
+    </Link>
   );
 }

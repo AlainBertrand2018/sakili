@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const shortcuts = [
-  { name: "Discover", href: "/discover", icon: Search },
+  { name: "Discover", href: "/about", icon: Search },
   { name: "Organizations", href: "/organizations", icon: Building2 },
   { name: "Ecosystem Map", href: "/map", icon: Map },
   { name: "Events", href: "/events", icon: Calendar },
